@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 800px; /* Adjust as needed */
+  }
+  
+  .card {
+    flex: 0 0 calc(120% - 10px); 
+    margin-bottom: 10px;
+    
+  }
+  .sort-by {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: white;
+    margin-left: 210px;
+    margin-top: 40px;
+  }
+  
+  .sort-by span {
+    margin-right: 10px;
+  }
+  
+  .sort-by label {
+    cursor: pointer;
+    margin-right: 20px;
+    padding: 8px 15px;
+    border: 2px solid #007bff;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .sort-by input[type="radio"] {
+    display: none;
+  }
+  
+  .sort-by input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
