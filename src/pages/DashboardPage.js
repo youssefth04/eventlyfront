@@ -18,7 +18,8 @@ class DashboardPage extends Component {
         { name: "CANTRAL CEE", date: "27/06/2024", place: "Rabat", price: 300, img: "/img/cee.png" },
         { name: "LARTISTE", date: "28/06/2024", place: "Rabat", price: 150, img: "/img/lartiste-.jpg" },
       ],
-      filteredCards: [], // State to store filtered cards based on search
+      filteredCards: [], // State to hold filtered cards
+      basketQuantity: 0, // Initial quantity in the basket
     };
   }
 
@@ -27,23 +28,46 @@ class DashboardPage extends Component {
     this.setState({ sortBy: event.target.value });
   };
 
+  // Function to add to basket
+  handleAddToBasket = () => {
+    this.setState((prevState) => ({
+      basketQuantity: prevState.basketQuantity + 1,
+    }));
+  };
+
   // Function to handle search
-  handleSearch = (searchText) => {
-    const { cards } = this.state;
-    // Perform search/filtering logic
-    const filteredCards = cards.filter((card) =>
-      card.name.toLowerCase().includes(searchText.toLowerCase())
-    );
+  handleSearch = (searchTerm) => {
+    // Convert searchTerm to lowercase for case-insensitive search
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+    // Filter cards based on name (you can adjust this for other properties)
+    const filteredCards = this.state.cards.filter((card) => {
+      const lowerCaseCardName = card.name.toLowerCase();
+      return lowerCaseCardName.includes(lowerCaseSearchTerm);
+    });
+
+    // Update state with filtered cards
     this.setState({ filteredCards });
   };
 
   render() {
-    const { sortBy, cards, filteredCards } = this.state;
-    const displayCards = filteredCards.length > 0 ? filteredCards : cards;
+    const { sortBy, cards, filteredCards, basketQuantity } = this.state;
+    const cardsToDisplay = filteredCards.length > 0 ? filteredCards : cards; // Use filteredCards if there are any, otherwise use all cards
+
+    const sortedCards = [...cardsToDisplay].sort((a, b) => {
+      if (sortBy === "name") {
+        return a.name.localeCompare(b.name);
+      } else if (sortBy === "date") {
+        return new Date(a.date) - new Date(b.date);
+      } else if (sortBy === "price") {
+        return a.price - b.price;
+      }
+      return 0;
+    });
 
     return (
       <div>
-        <Navbar f="none" g="none" quantity={0} svg={<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-handbag-fill" viewBox="0 0 16 16">
+        <Navbar f="none" g="none" quantity={basketQuantity} svg={<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-handbag-fill" viewBox="0 0 16 16">
           <path d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2M5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0z" />
         </svg>} />
         <Search onSearch={this.handleSearch} />
@@ -54,8 +78,8 @@ class DashboardPage extends Component {
           <label><input type="radio" name="sort" value="price" checked={sortBy === "price"} onChange={this.handleSortChange} /> Price</label>
         </div>
         <div className="container">
-          {displayCards.map((card, index) => (
-            <Card key={index} name={card.name} date={card.date} place={card.place} price={card.price} img={card.img} />
+          {sortedCards.map((card, index) => (
+            <Card key={index} name={card.name} date={card.date} place={card.place} price={card.price} img={card.img} onAddToBasket={this.handleAddToBasket} />
           ))}
         </div>
         <Footer />

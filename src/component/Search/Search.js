@@ -5,23 +5,17 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: "", // State to store the search text
+      searchTerm: ""
     };
   }
 
-  // Function to handle input change
   handleInputChange = (event) => {
-    this.setState({ searchText: event.target.value });
+    this.setState({ searchTerm: event.target.value });
   };
 
-  // Function to handle search button click
   handleSearch = () => {
-    const { searchText } = this.state;
-    // Call a function to perform the search action with searchText
-    console.log(`Searching for: ${searchText}`);
-    // You can implement the actual search logic here, such as filtering cards based on searchText
-    // For now, let's assume you have a prop function to handle search in parent component
-    this.props.onSearch(searchText); // Assuming onSearch is a prop function passed from parent
+    const { searchTerm } = this.state;
+    this.props.onSearch(searchTerm); // Call the onSearch function passed as prop
   };
 
   render() {
@@ -32,8 +26,8 @@ class Search extends Component {
             type="text"
             id="searchInput"
             placeholder="Search..."
-            value={this.state.searchText}
-            onChange={this.handleInputChange} // Bind input value to state
+            value={this.state.searchTerm}
+            onChange={this.handleInputChange}
           />
           <button type="button" onClick={this.handleSearch}>
             Search
