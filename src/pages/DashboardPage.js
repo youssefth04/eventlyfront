@@ -16,56 +16,46 @@ class DashboardPage extends Component {
         { name: "CAMILA CABELLO", date: "25/06/2024", place: "Rabat", price: 200, img: "/img/cam.png" },
         { name: "ELGRANDETOTO", date: "26/06/2024", place: "Rabat", price: 1, img: "/img/toto.jpeg" },
         { name: "CANTRAL CEE", date: "27/06/2024", place: "Rabat", price: 300, img: "/img/cee.png" },
-        { name: "LARTISTE", date: "28/06/2024", place: "Rabat", price: 150, img: "/img/lartiste-.jpg" }
+        { name: "LARTISTE", date: "28/06/2024", place: "Rabat", price: 150, img: "/img/lartiste-.jpg" },
       ],
-      basketQuantity: 0
+      filteredCards: [], // State to store filtered cards based on search
     };
   }
 
+  // Function to handle sorting
   handleSortChange = (event) => {
     this.setState({ sortBy: event.target.value });
   };
 
-  handleAddToBasket = () => {
-    this.setState((prevState) => ({
-      basketQuantity: prevState.basketQuantity + 1
-    }));
+  // Function to handle search
+  handleSearch = (searchText) => {
+    const { cards } = this.state;
+    // Perform search/filtering logic
+    const filteredCards = cards.filter((card) =>
+      card.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    this.setState({ filteredCards });
   };
 
   render() {
-    const { sortBy, cards, basketQuantity } = this.state;
-    const sortedCards = [...cards].sort((a, b) => {
-      if (sortBy === "name") {
-        return a.name.localeCompare(b.name);
-      } else if (sortBy === "date") {
-        return new Date(a.date) - new Date(b.date);
-      } else if (sortBy === "price") {
-        return a.price - b.price;
-      }
-      return 0;
-    });
+    const { sortBy, cards, filteredCards } = this.state;
+    const displayCards = filteredCards.length > 0 ? filteredCards : cards;
 
     return (
       <div>
-        <Navbar f="none" g="none" quantity={basketQuantity}  svg={<svg xmlns='http://www.w3.org/2000/svg' width='35' height='35' fill='currentColor' className='bi bi-handbag-fill' viewBox='0 0 16 16'>
-          <path d='M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2M5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0z'/>
+        <Navbar f="none" g="none" quantity={0} svg={<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" className="bi bi-handbag-fill" viewBox="0 0 16 16">
+          <path d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2M5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0z" />
         </svg>} />
-        <Search />
+        <Search onSearch={this.handleSearch} />
         <div className="sort-by">
           <span>Sort By:</span>
-          <label>
-            <input type="radio" name="sort" value="name" checked={sortBy === "name"} onChange={this.handleSortChange} /> Name
-          </label>
-          <label>
-            <input type="radio" name="sort" value="date" checked={sortBy === "date"} onChange={this.handleSortChange} /> Date
-          </label>
-          <label>
-            <input type="radio" name="sort" value="price" checked={sortBy === "price"} onChange={this.handleSortChange} /> Price
-          </label>
+          <label><input type="radio" name="sort" value="name" checked={sortBy === "name"} onChange={this.handleSortChange} /> Name</label>
+          <label><input type="radio" name="sort" value="date" checked={sortBy === "date"} onChange={this.handleSortChange} /> Date</label>
+          <label><input type="radio" name="sort" value="price" checked={sortBy === "price"} onChange={this.handleSortChange} /> Price</label>
         </div>
         <div className="container">
-          {sortedCards.map((card, index) => (
-            <Card key={index} name={card.name} date={card.date} place={card.place} price={card.price} img={card.img} onAddToBasket={this.handleAddToBasket} />
+          {displayCards.map((card, index) => (
+            <Card key={index} name={card.name} date={card.date} place={card.place} price={card.price} img={card.img} />
           ))}
         </div>
         <Footer />
