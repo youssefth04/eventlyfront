@@ -5,8 +5,9 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: ''
+      username: "",
+      password: "",
+      errorMessage: "",
     };
 
     this.service = new Service();
@@ -17,48 +18,62 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSignInButton = (event) => {
-    event.preventDefault(); 
+  handleSignInButton = async (event) => {
+    event.preventDefault();
     const { username, password } = this.state;
-    const response = this.service.signIn(username, password);
-    if (response === 'logged in') {
-      window.location.href = '/dashboard';
-    } else {
-      console.log('error try again');
+
+    try {
+      const response = await this.service.signIn(username, password);
+      if (response.message === "Login successful") {
+        // Redirect to dashboard upon successful login
+        window.location.href = "/dashboard";
+      } else {
+        this.setState({ errorMessage: "Incorrect username or password" });
+      }
+    } catch (error) {
+      console.error("Sign-in error:", error);
+      this.setState({ errorMessage: "Sign-in failed. Please try again." });
     }
   };
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, errorMessage } = this.state;
 
     return (
       <section className="contact" id="contact">
-        <h1 className="heading"><span>Log</span> In</h1>
+        <h1 className="heading">
+          <span>Log</span> In
+        </h1>
+
+        {errorMessage && (
+          <div style={{ color: "red", marginBottom: "1em" }}>{errorMessage}</div>
+        )}
 
         <form onSubmit={this.handleSignInButton}>
-          <div className="inputBox" style={{ height: "2em", marginBottom: "6em", marginLeft: "25em" }}>
+          <div className="inputBox">
             <input
               type="text"
               id="username"
               name="username"
-              placeholder="username"
+              placeholder="Username"
               onChange={this.handleInput}
               value={username}
+              required
             />
           </div>
-          <div className="inputBox" style={{ height: "2em", marginBottom: "6em", marginLeft: "25em" }}>
+          <div className="inputBox">
             <input
               type="password"
               id="password"
               name="password"
-              placeholder="password"
+              placeholder="Password"
               onChange={this.handleInput}
               value={password}
+              required
             />
           </div>
           <input type="submit" value="Log in" className="btn" />
         </form>
-        <br /><br /><br /><br /><br /><br /><br /><br /><br />
       </section>
     );
   }
