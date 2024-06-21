@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 
 class Card extends Component {
-  render() {
+  handleAddToBasket = () => {
     const { name, date, place, price, img, onAddToBasket } = this.props;
+    // Pass relevant information to parent component
+    onAddToBasket({ name, date, place, price, img });
+  };
+
+  render() {
+    const { name, date, place, price, img } = this.props;
 
     return (
       <div>
@@ -14,7 +20,7 @@ class Card extends Component {
               <p className="card-info">Date: {date}</p>
               <p className="card-info">Place: {place}</p>
               <p className="card-info">Price: {price} MAD</p>
-              <button className="buy-btn" onClick={onAddToBasket}>
+              <button className="buy-btn" onClick={this.handleAddToBasket}>
                 Add to basket
               </button>
             </div>
