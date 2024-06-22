@@ -24,10 +24,15 @@ class Login extends Component {
 
     try {
       const response = await this.service.signIn(username, password);
-      if (response.message === "Login successful" ) {
+      if (response.message === "Login successful" && response.role==="client") {
         // Redirect to dashboard upon successful login
         window.location.href = "/dashboard";
-      } else {
+      }
+      else if (response.message === "Login successful" && response.role==="organizer") {
+        // Redirect to dashboard upon successful login
+        window.location.href = "/organizer";
+      }
+       else {
         this.setState({ errorMessage: "Incorrect username or password" });
       }
     } catch (error) {
