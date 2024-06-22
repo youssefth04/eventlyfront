@@ -4,7 +4,8 @@ import Navbar from "../component/Navbar/Navbar";
 import Footer from "../component/Footer/Footer";
 import Card from "../component/Card/Card";
 import Search from "../component/Search/Search";
-import "./pages.css";
+import "./payment.css";
+
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class DashboardPage extends Component {
   };
 
   render() {
-    const { sortBy, cards, filteredCards, basketQuantity, selectedCards } = this.state;
+    const { sortBy, cards, filteredCards, basketQuantity } = this.state;
     const cardsToDisplay = filteredCards.length > 0 ? filteredCards : cards;
     const sortedCards = [...cardsToDisplay].sort((a, b) => {
       if (sortBy === "name") {
@@ -75,52 +76,21 @@ class DashboardPage extends Component {
           g="none"
           quantity={basketQuantity}
           svg={
-            <a href="/payment"><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="35"
-              fill="currentColor"
-              className="bi bi-handbag-fill"
-              viewBox="0 0 16 16"
-            >
-              <path d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2M5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0z" />
-            </svg></a>
+            <Link to="/payment">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                fill="currentColor"
+                className="bi bi-handbag-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8 1a2 2 0 0 0-2 2v2H5V3a3 3 0 1 1 6 0v2h-1V3a2 2 0 0 0-2-2M5 5H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11v1.5a.5.5 0 0 1-1 0V5H6v1.5a.5.5 0 0 1-1 0z" />
+              </svg>
+            </Link>
           }
         />
         <Search onSearch={this.handleSearch} />
-        <div className="sort-by">
-          <span>Sort By:</span>
-          <label>
-            <input
-              type="radio"
-              name="sort"
-              value="name"
-              checked={sortBy === "name"}
-              onChange={this.handleSortChange}
-            />{" "}
-            Name
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sort"
-              value="date"
-              checked={sortBy === "date"}
-              onChange={this.handleSortChange}
-            />{" "}
-            Date
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="sort"
-              value="price"
-              checked={sortBy === "price"}
-              onChange={this.handleSortChange}
-            />{" "}
-            Price
-          </label>
-        </div>
         <div className="container">
           {sortedCards.map((card, index) => (
             <Card
@@ -134,9 +104,7 @@ class DashboardPage extends Component {
             />
           ))}
         </div>
-       
         <Footer />
-        
       </div>
     );
   }

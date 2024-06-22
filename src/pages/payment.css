@@ -1,0 +1,86 @@
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+  
+  .cards {
+    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 40px; /* Added margin-top for the cards */
+  }
+  
+  .card {
+    
+    width: calc(33.33% - 20px); /* Adjusted width for three columns */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .card img {
+    width: 100%; /* Ensures the image fills the container */
+    height: 200px; /* Ensures the image is square */
+    object-fit: cover; /* Ensures the image covers the entire container */
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .card-content {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .card-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .card-info {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .card button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card button:hover {
+    background-color: #0056b3;
+  }
+  
+  .paypal-button-container {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .empty-basket {
+    text-align: center;
+    font-size: 24px;
+    color: #666;
+    margin-top: 100px; /* Center vertically */
+  }

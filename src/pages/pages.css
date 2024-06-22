@@ -7,9 +7,38 @@
   }
   
   .card {
-    flex: 0 0 calc(120% - 10px); 
-    margin-bottom: 10px;
+    width: calc(33.33% - 20px); /* Adjusted width for three columns */
+    height: 0;
+    padding-bottom: calc(33.33% - 20px); /* Maintain square aspect ratio */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Adjusted margin-top for better spacing */
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s; /* Add transition for hover effect */
+  }
+  .card img {
+    width: 100%; /* Ensures the image fills the container */
+    height: 100%; /* Ensures the image fills the container */
+    object-fit: cover; /* Ensures the image covers the entire container */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  }
+  .cards {
     
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 40px; /* Added margin-top for the cards */
   }
   .sort-by {
     display: flex;
@@ -42,3 +71,4 @@
     color: #fff;
     border-color: #007bff;
   }
+  
