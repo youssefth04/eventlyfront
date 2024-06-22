@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 
 class Navbar extends Component {
+  handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/authentification"; // Redirect to home page after logout
+  };
   render() {
+  
     const{a,b,c,d,e,f,g,svg,quantity}=this.props
     return (
       <header className="header">
@@ -13,8 +18,8 @@ class Navbar extends Component {
           <a href="#gallery">{c}</a>
           <a href="#review">{d}</a>
           <a href="#contact">{e}</a>
-          {f !== "none" && <a href="inscription" className="btn">{f}</a>}
-         {g!=="none" && <a href="authentification" className="btn">{g}</a>}
+          {f !== "none" && <a href="inscription" className="btn" >{f}</a>}
+         {g!=="none" && <a href="authentification" className="btn" onClick={this.handleLogout}>{g}</a>}
          <a>{svg}</a>
          {quantity!=="none" &&  <span className="bag-quantity">
           <span>{quantity}</span>

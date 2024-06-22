@@ -73,7 +73,7 @@ class DashboardPage extends Component {
       <div>
         <Navbar
           f="none"
-          g="none"
+          g="logout"
           quantity={basketQuantity}
           svg={
             <Link to="/payment">

@@ -15,7 +15,7 @@ export default class Service {
             const signUpUrl = `${this.host}/register`;
             const xhr = new XMLHttpRequest();
             
-            xhr.open('POST', signUpUrl, true); // Set to true for asynchronous
+            xhr.open('POST', signUpUrl, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.onload = function() {
@@ -47,7 +47,7 @@ export default class Service {
             const signInUrl = `${this.host}/login`;
             const xhr = new XMLHttpRequest();
     
-            xhr.open('POST', signInUrl, true); // Set to true for asynchronous
+            xhr.open('POST', signInUrl, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
     
             xhr.onload = function () {
@@ -84,7 +84,7 @@ export default class Service {
             const checkUrl = `${this.host}/checkcredential`;
             const xhr = new XMLHttpRequest();
 
-            xhr.open('POST', checkUrl, true); // Set to true for asynchronous
+            xhr.open('POST', checkUrl, true);
             xhr.setRequestHeader('Content-Type', 'application/json');
 
             xhr.onload = function() {

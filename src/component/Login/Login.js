@@ -24,7 +24,7 @@ class Login extends Component {
 
     try {
       const response = await this.service.signIn(username, password);
-      if (response.message === "Login successful") {
+      if (response.message === "Login successful" ) {
         // Redirect to dashboard upon successful login
         window.location.href = "/dashboard";
       } else {
