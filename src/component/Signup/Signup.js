@@ -38,8 +38,8 @@ class SignUp extends Component {
     return (
       <section className="contact" id="contact">
         <h1 className="heading">
-          <span>Sign</span> Up
-        </h1>
+        <span style={{ marginLeft: '10em' }}>Sign Up</span>
+                </h1>
 
         <form id="signupForm" onSubmit={this.handleSubmit}>
           <div className="inputBox" style={{ height: "2em", marginBottom: "4em", marginLeft: "25em" }}>
