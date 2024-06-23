@@ -109,4 +109,39 @@ export default class Service {
             xhr.send(JSON.stringify({ sessionToken }));
         });
     }
-}
+
+    createEvent(eventname, nbplace, price, date, description) {
+        return new Promise((resolve, reject) => {
+            const createUrl = `${this.host}/event`;
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', createUrl, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.setRequestHeader('Authorization', `Bearer ${this.sessionToken}`);
+
+            xhr.onload = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    resolve(response);
+                } else {
+                    reject(new Error(xhr.responseText || 'Create event failed'));
+                }
+            };
+
+            xhr.onerror = () => {
+                reject(new Error('Network error'));
+            };
+
+            xhr.ontimeout = () => {
+                reject(new Error('Request timed out'));
+            };
+
+            const eventData = { eventname, nbplace, price, date, description };
+            xhr.send(JSON.stringify(eventData));
+        });
+    }
+
+        }
+        
+
+    
