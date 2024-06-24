@@ -84,3 +84,34 @@
     color: #666;
     margin-top: 100px; /* Center vertically */
   }
+  .sort-by {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: white;
+    margin-left: 210px;
+    margin-top: 40px;
+  }
+  
+  .sort-by span {
+    margin-right: 10px;
+  }
+  
+  .sort-by label {
+    cursor: pointer;
+    margin-right: 20px;
+    padding: 8px 15px;
+    border: 2px solid #007bff;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .sort-by input[type="radio"] {
+    display: none;
+  }
+  
+  .sort-by input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }

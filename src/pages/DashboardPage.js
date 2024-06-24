@@ -19,6 +19,7 @@ class DashboardPage extends Component {
         { name: "ELGRANDETOTO", date: "26/06/2024", place: "Rabat", price: 1, img: "/img/toto.jpeg" },
         { name: "CENTRAL CEE", date: "27/06/2024", place: "Rabat", price: 300, img: "/img/cee.png" },
         { name: "LARTISTE", date: "28/06/2024", place: "Rabat", price: 150, img: "/img/lartiste-.jpg" },
+        
       ],
       filteredCards: [],
       basketQuantity: 0,
@@ -91,6 +92,39 @@ class DashboardPage extends Component {
           }
         />
         <Search onSearch={this.handleSearch} />
+        <div className="sort-by">
+          <span>Sort By:</span>
+          <label>
+            <input
+              type="radio"
+              name="sort"
+              value="name"
+              checked={sortBy === "name"}
+              onChange={this.handleSortChange}
+            />{" "}
+            Name
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="sort"
+              value="date"
+              checked={sortBy === "date"}
+              onChange={this.handleSortChange}
+            />{" "}
+            Date
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="sort"
+              value="price"
+              checked={sortBy === "price"}
+              onChange={this.handleSortChange}
+            />{" "}
+            Price
+          </label>
+        </div>
         <div className="container">
           {sortedCards.map((card, index) => (
             <Card
